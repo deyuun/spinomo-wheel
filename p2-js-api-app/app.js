@@ -215,15 +215,22 @@ async function drawWheel() {
 }
 
 const spinSound = new Audio('sounds/spinsounds.mp3')
-const winnerSound = new Audio('sounds/winnersound.mp3')
+const winnerSound = new Audio('sounds/winnersound.mp3');
 spinSound.volume = 0.1;
 let currentRotation = 0;
+let isSpinning = false;
+
 function spin() {
-  spinSound.play();
+  if (isSpinning) {
+    return;
+  }
   if (options.length === 0) {
     showToast('Add some option first');
     return;
   }
+
+  isSpinning = true;
+  spinSound.play();
   // Random color
   const fullSpins = Math.floor(Math.random() * 5) + 5;
   const anglePerOption = 360 / options.length;
@@ -263,6 +270,7 @@ function spin() {
     document.getElementById('result').textContent = `You got: ${result.text}! 🚀`;
 
     winnerSound.play();
+    isSpinning = false;
   }, 3000);
 }
 
