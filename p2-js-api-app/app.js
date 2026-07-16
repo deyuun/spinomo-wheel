@@ -134,10 +134,6 @@ async function displayOptions() {
 }
 
 async function addPresetOption(option) {
-  const optionList = document.getElementById('optionsList');
-  const li = document.createElement('li');
-  li.className = 'optionItem loading';
-  li.textContent = option;
 
   try {
     const color = await getRGB();
@@ -147,16 +143,6 @@ async function addPresetOption(option) {
   catch (error) {
     console.error('Error fetching RGB values:', error);
   }
-
-  const button = document.createElement('button');
-  button.textContent = 'X';
-  button.addEventListener('click', () => {
-    removeOption(option);
-  });
-  button.className = 'remove-option-button';
-
-  li.appendChild(button);
-  optionList.appendChild(li); 
 }
 
 function clearOptions() {
